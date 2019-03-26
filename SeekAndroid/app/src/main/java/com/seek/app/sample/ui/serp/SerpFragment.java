@@ -9,6 +9,7 @@ import com.seek.app.sample.R;
 import com.seek.app.sample.arch.BaseFragment;
 import com.seek.app.sample.di.ViewModelFactory;
 import com.seek.app.sample.model.JobItem;
+import com.seek.app.sample.ui.MainActivity;
 import com.seek.app.sample.utils.Constants;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SerpFragment extends BaseFragment {
+public class SerpFragment extends BaseFragment implements SerpAdapter.SearchItemClickListener {
 
     public static final String TAG = "SerpFragment";
 
@@ -50,7 +51,7 @@ public class SerpFragment extends BaseFragment {
 
         serpViewModel = ViewModelProviders.of(this, viewModelFactory).get(SerpViewModelImpl.class);
 
-        adapter = new SerpAdapter();
+        adapter = new SerpAdapter(this);
     }
 
     @Override
@@ -86,6 +87,12 @@ public class SerpFragment extends BaseFragment {
                     adapter.setJobItems(jobItems);
             }
         });
+    }
+
+
+    @Override
+    public void onItemClickListener(String jobSearchId) {
+        ((MainActivity) getActivity()).getComponent().getNavigationController().navigateToBrowser(Constants.SEARCH_DETAIL_BASE_URL + jobSearchId);
     }
 
     @Override

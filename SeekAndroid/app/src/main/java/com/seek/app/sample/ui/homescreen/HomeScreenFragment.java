@@ -17,6 +17,7 @@ import com.seek.app.sample.arch.navigation.MainNavigationController;
 import com.seek.app.sample.di.ViewModelFactory;
 import com.seek.app.sample.model.JobItem;
 import com.seek.app.sample.ui.MainActivity;
+import com.seek.app.sample.utils.UiUtils;
 
 import java.util.ArrayList;
 
@@ -126,9 +127,10 @@ public class HomeScreenFragment extends BaseFragment {
             public void onChanged(ArrayList<JobItem> searchJobResult) {
                 if (searchJobResult != null) {
                     Log.w("List size", searchJobResult.size() + "");
-                    if (searchJobResult.size() > 0)
+                    if (searchJobResult.size() > 0) {
+                        UiUtils.hideKeyBoard(whereEditText);
                         navigationController.navigateToSerpFragment(searchJobResult);
-                    else
+                    } else
                         Snackbar.make(seekButton, getString(R.string.no_search_results), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             }
