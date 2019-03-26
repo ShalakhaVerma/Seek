@@ -9,4 +9,6 @@ public interface MainNavigationController {
     void navigateToHomeScreen();
 
     void navigateToSerpFragment(ArrayList<JobItem> jobItems);
+
+    void navigateToBrowser(String jobId);
 }

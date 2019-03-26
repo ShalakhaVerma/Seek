@@ -10,11 +10,18 @@ import com.seek.app.sample.model.JobItem;
 
 import java.util.List;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SerpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<JobItem> jobItems;
+    private List<JobItem> jobItems;
+
+    private SearchItemClickListener searchItemClickListener;
+
+    public SerpAdapter(SearchItemClickListener listener) {
+        this.searchItemClickListener = listener;
+    }
 
     public synchronized void setJobItems(List<JobItem> jobItems) {
         this.jobItems = jobItems;
@@ -29,13 +36,22 @@ public class SerpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        JobItem jobItem = jobItems.get(position);
+        final JobItem jobItem = jobItems.get(position);
         SerpViewHolder serpViewHolder = (SerpViewHolder) holder;
         if (serpViewHolder != null) {
             serpViewHolder.title.setText(jobItem.title());
             serpViewHolder.advertiserName.setText(jobItem.advertiser().description());
             serpViewHolder.teaser.setText(jobItem.teaser()
             );
+
+            serpViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (searchItemClickListener != null) {
+                        searchItemClickListener.onItemClickListener(jobItem.searchId());
+                    }
+                }
+            });
         }
     }
 
@@ -49,13 +65,20 @@ public class SerpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public final TextView title;
         public final TextView teaser;
         public final TextView advertiserName;
+        public final CardView itemView;
 
         public SerpViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView.findViewById(R.id.card_view);
             title = itemView.findViewById(R.id.title);
             teaser = itemView.findViewById(R.id.teaser);
             advertiserName = itemView.findViewById(R.id.advertiseName);
 
         }
+    }
+
+    public interface SearchItemClickListener {
+
+        void onItemClickListener(String jobSearchId);
     }
 }
