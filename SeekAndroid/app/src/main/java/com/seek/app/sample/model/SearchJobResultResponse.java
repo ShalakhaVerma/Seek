@@ -14,13 +14,17 @@ public class SearchJobResultResponse {
     public static class Job {
         @SerializedName("id")
         public String jobId;
+        @SerializedName("title")
+        public String title;
         @SerializedName("listingDate")
         public String listingDate;
+        @SerializedName("teaser")
+        public String teaser;
         @SerializedName("advertiser")
         public Advertiser advertiser;
     }
 
-    private static class Advertiser {
+    public static class Advertiser {
         @SerializedName("id")
         public String advertiserId;
         @SerializedName("description")

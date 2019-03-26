@@ -4,7 +4,7 @@ import com.seek.app.sample.model.JobItem;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.util.List;
+import java.util.ArrayList;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -28,7 +28,7 @@ public interface HomeScreenViewModel {
     LiveData<Integer> getLoadingStateObservable();
 
     @NonNull
-    LiveData<List<JobItem>> getSearchResultObservable();
+    LiveData<ArrayList<JobItem>> getSearchResultObservable();
 
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

@@ -25,4 +25,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return component;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

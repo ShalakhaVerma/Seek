@@ -11,6 +11,7 @@ import com.seek.app.sample.di.modules.NavigationModule;
 import com.seek.app.sample.di.scopes.ActivityContext;
 import com.seek.app.sample.ui.MainActivity;
 import com.seek.app.sample.ui.homescreen.HomeScreenFragment;
+import com.seek.app.sample.ui.serp.SerpFragment;
 
 import dagger.Subcomponent;
 
@@ -19,6 +20,9 @@ import dagger.Subcomponent;
 public interface MainActivityComponent {
 
     void inject(HomeScreenFragment f);
+
+    void inject(SerpFragment f);
+
 
     MainNavigationController getNavigationController();
 

@@ -6,7 +6,7 @@ import com.seek.app.sample.model.SearchJobResult;
 import com.seek.app.sample.repository.SearchJobsRepository;
 import com.seek.app.sample.utils.StringUtils;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -35,7 +35,7 @@ public class HomeScreenViewModelImpl extends ViewModel implements HomeScreenView
     @NonNull
     private final MutableLiveData<Integer> loadingStateObservable;
     @NonNull
-    private final MutableLiveData<List<JobItem>> searchResultObserbale;
+    private final MutableLiveData<ArrayList<JobItem>> searchResultObserbale;
 
     private Disposable searchJobsDisposable = null;
 
@@ -74,7 +74,7 @@ public class HomeScreenViewModelImpl extends ViewModel implements HomeScreenView
 
 
     @Override
-    public LiveData<List<JobItem>> getSearchResultObservable() {
+    public LiveData<ArrayList<JobItem>> getSearchResultObservable() {
         return searchResultObserbale;
     }
 

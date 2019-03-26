@@ -3,4 +3,6 @@
     <string name="header">Find your dream job faster</string>
     <string name="what">What</string>
     <string name="where">Where</string>
+    <string name="no_search_results">OOPS!! Unable to find jobs for your search. Please try something else.</string>
+
 </resources>
