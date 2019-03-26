@@ -2,6 +2,7 @@ package com.seek.app.sample.di.modules;
 
 import com.seek.app.sample.di.ViewModelFactory;
 import com.seek.app.sample.ui.homescreen.HomeScreenViewModelImpl;
+import com.seek.app.sample.ui.serp.SerpViewModelImpl;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -37,4 +38,9 @@ public abstract class AACViewModelModule {
     @IntoMap
     @ViewModelKey(HomeScreenViewModelImpl.class)
     abstract ViewModel bindsHomeScreenViewModel(HomeScreenViewModelImpl model);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SerpViewModelImpl.class)
+    abstract ViewModel bindsSerpViewModel(SerpViewModelImpl model);
 }

@@ -9,13 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.seek.app.sample.R;
 import com.seek.app.sample.arch.BaseFragment;
+import com.seek.app.sample.arch.navigation.MainNavigationController;
 import com.seek.app.sample.di.ViewModelFactory;
 import com.seek.app.sample.model.JobItem;
 import com.seek.app.sample.ui.MainActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -45,6 +48,9 @@ public class HomeScreenFragment extends BaseFragment {
 
     @Inject
     ViewModelFactory viewModelFactory;
+
+    @Inject
+    MainNavigationController navigationController;
 
     private HomeScreenViewModel homeScreenViewModel;
 
@@ -115,11 +121,15 @@ public class HomeScreenFragment extends BaseFragment {
             }
         });
 
-        homeScreenViewModel.getSearchResultObservable().observe(this.getViewLifecycleOwner(), new Observer<List<JobItem>>() {
+        homeScreenViewModel.getSearchResultObservable().observe(this.getViewLifecycleOwner(), new Observer<ArrayList<JobItem>>() {
             @Override
-            public void onChanged(List<JobItem> searchJobResult) {
+            public void onChanged(ArrayList<JobItem> searchJobResult) {
                 if (searchJobResult != null) {
                     Log.w("List size", searchJobResult.size() + "");
+                    if (searchJobResult.size() > 0)
+                        navigationController.navigateToSerpFragment(searchJobResult);
+                    else
+                        Snackbar.make(seekButton, getString(R.string.no_search_results), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -127,5 +137,14 @@ public class HomeScreenFragment extends BaseFragment {
 
     public static Fragment newInsatnce() {
         return new HomeScreenFragment();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (homeScreenViewModel == null) return;
+        homeScreenViewModel.getLoadingStateObservable().removeObservers(this);
+        homeScreenViewModel.getSearchResultObservable().removeObservers(this);
+        homeScreenViewModel.isSeekJobEnabled().removeObservers(this);
     }
 }
