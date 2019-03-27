@@ -40,7 +40,7 @@ public class HomeScreenViewModelImpl extends ViewModel implements HomeScreenView
     private Disposable searchJobsDisposable = null;
 
     @Inject
-    HomeScreenViewModelImpl(@NonNull SearchJobsRepository searchJobsRepository) {
+    public HomeScreenViewModelImpl(@NonNull SearchJobsRepository searchJobsRepository) {
         this.searchJobsRepository = searchJobsRepository;
         seekJobsEnableObservable = new MutableLiveData<>();
         loadingStateObservable = new MutableLiveData<>();
